@@ -19,12 +19,12 @@ export default function Checkout() {
   })
   const router = useRouter()
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // Here you would typically process the payment and create an order
     console.log('Order submitted:', formData)
@@ -85,7 +85,7 @@ export default function Checkout() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" onClick={handleSubmit}>Place Order</Button>
+          <Button className="w-full" type="submit">Place Order</Button>
         </CardFooter>
       </Card>
     </div>

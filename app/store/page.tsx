@@ -27,7 +27,7 @@ export default function Store() {
     setCart(savedCart)
   }, [])
 
-  const addToCart = (product) => {
+  const addToCart = (product: { id: number; name: string; price: number; description: string; image: string }) => {
     const updatedCart = [...cart, product]
     setCart(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart))

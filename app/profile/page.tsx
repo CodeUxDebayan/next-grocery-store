@@ -7,7 +7,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 export default function Profile() {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  interface User {
+    name: string;
+    email: string;
+  }
+
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
