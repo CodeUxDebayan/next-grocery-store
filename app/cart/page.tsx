@@ -7,7 +7,14 @@ import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 
 export default function Cart() {
-  const [cart, setCart] = useState([])
+  type CartItem = {
+    id: string | number;
+    name: string;
+    price: number;
+    image: string;
+  };
+
+  const [cart, setCart] = useState<CartItem[]>([])
   const [mounted, setMounted] = useState(false)
   const router = useRouter()
 
@@ -17,7 +24,7 @@ export default function Cart() {
     setCart(savedCart)
   }, [])
 
-  const removeFromCart = (productId) => {
+  const removeFromCart = (productId: string | number) => {
     const updatedCart = cart.filter(item => item.id !== productId)
     setCart(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart))
