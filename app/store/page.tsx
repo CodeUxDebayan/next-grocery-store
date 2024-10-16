@@ -5,8 +5,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 
+// Define the Product type
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+}
+
 // Mock data for products with images
-const mockProducts = [
+const mockProducts: Product[] = [
   { id: 1, name: "Apple", price: 0.5, description: "Fresh red apple", image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" },
   { id: 2, name: "Banana", price: 0.3, description: "Ripe yellow banana", image: "https://images.unsplash.com/photo-1603833665858-e61d17a86224?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" },
   { id: 3, name: "Milk", price: 2.5, description: "1 gallon of whole milk", image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" },
@@ -16,18 +25,19 @@ const mockProducts = [
 ]
 
 export default function Store() {
-  const [products, setProducts] = useState(mockProducts)
-  const [cart, setCart] = useState<(string | number)[]>([])
+  // State for products and cart with appropriate types
+  const [products, setProducts] = useState<Product[]>(mockProducts)
+  const [cart, setCart] = useState<Product[]>([])
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
     // Load cart from localStorage
-    const savedCart = JSON.parse(localStorage.getItem('cart') || '[]')
+    const savedCart = JSON.parse(localStorage.getItem('cart') || '[]') as Product[]
     setCart(savedCart)
   }, [])
 
-  const addToCart = (product: { id: number; name: string; price: number; description: string; image: string }) => {
+  const addToCart = (product: Product) => {
     const updatedCart = [...cart, product]
     setCart(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart))
