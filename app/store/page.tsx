@@ -17,7 +17,7 @@ const mockProducts = [
 
 export default function Store() {
   const [products, setProducts] = useState(mockProducts)
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState<(string | number)[]>([])
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
